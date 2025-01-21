@@ -1,0 +1,1 @@
+Learning Python Dictionary and Lambda Function
