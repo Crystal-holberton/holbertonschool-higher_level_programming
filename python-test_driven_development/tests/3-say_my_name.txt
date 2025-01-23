@@ -1,0 +1,34 @@
+===========================
+How to Use 3-say_my_name.py
+===========================
+
+This module prints a name with the function 
+''def say_my_name(first_name, last_name="")''
+
+Usage
+=====
+
+''say_my_name(...)'' returns the first name and last name 
+
+>>> say_my_name = __import__('3-say_my_name').say_my_name
+
+>>> say_my_name("Alice", "Wonderland")
+My name is Alice Wonderland
+
+>>> say_my_name("Tony")
+My name is Tony 
+
+Invalid input
+=============
+
+Only excepts strings (no numbers)
+
+>>> say_my_name(123, "Stark")
+Traceback (most recent call last):
+    ...
+TypeError: first_name must be a string
+
+>>> say_my_name("Bruce", 789)
+Traceback (most recent call last):
+    ...
+TypeError: last_name must be a string
