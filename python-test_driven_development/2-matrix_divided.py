@@ -1,9 +1,10 @@
 #!/usr/bin/python3
-"""a function that divides all elements of a matrix"""
+"""A function that divides all elements of a matrix."""
 
 
 def matrix_divided(matrix, div):
     """
+
     Args:
         matrix (list): must be a list of lists of integers or floats
         div (int/float): the divisor
@@ -21,7 +22,10 @@ def matrix_divided(matrix, div):
         raise TypeError("matrix must be a matrix (list of lists) of intergers/floats")
     if not all(isinstance(num, (int, float)) for row in matrix for num in row):
         raise TypeError("matrix must be a matrix (list of lists) of intergers/floats")
-    if len(set(len(row) for row in matrix)) != 1:
+    row_lengths = [len(row) for row in matrix]
+    if len(set(row_lengths)) != 1:
+        raise TypeError("Each row of the matrix must have the same size")
+    if not isinstance(div, (int, float)):
         raise TypeError("div must be a number")
     if div == 0:
         raise ZeroDivisionError("division by zero")
