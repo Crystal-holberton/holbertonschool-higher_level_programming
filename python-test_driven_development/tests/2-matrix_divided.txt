@@ -142,6 +142,6 @@ Invalid Division
 ''div'' must be non-zero, otherwise a ZeroDivisionError is raised
 
 ::
-    >>> print(matrix_divided(matrix, "no number"))
+    >>> print(matrix_divided(matrix, 0))
     Traceback (most recent call last):
     ZeroDivisionError: division by zero
