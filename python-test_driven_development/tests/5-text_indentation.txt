@@ -49,7 +49,7 @@ Print.
 <BLANKLINE>
 
 >>> text_indentation("Middle of \n the line.")
-Middle of
+Middle of 
 the line.
 <BLANKLINE>
 
