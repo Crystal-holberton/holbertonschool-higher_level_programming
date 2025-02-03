@@ -11,13 +11,19 @@ True
 >>> my_list.print_sorted()
 []
 
-Check that appending works:
+Check __str__:
+>>> my_list = MyList()
 >>> my_list.append(1)
+>>> my_list.append(4)
 >>> my_list.append(2)
 >>> my_list.append(3)
->>> my_list.append(4)
+>>> my_list.append(5)
+>>> print(my_list)
+[1, 4, 2, 3, 5]
+
+Check sorted appending:
 >>> my_list.print_sorted()
-[1, 2, 3, 4]
+[1, 2, 3, 4, 5]
 
 Check unsorted appending:
 >>> my_list = MyList()
@@ -30,9 +36,12 @@ Check unsorted appending:
 [1, 2, 3, 4, 5]
 
 Negative numbers:
->>> my_list.append(-5)
+>>> my_list = MyList()
+>>> my_list.append(-1)
+>>> my_list.append(-3)
+>>> my_list.append(-2)
 >>> my_list.print_sorted()
-[-5, 1, 2, 3, 4, 5]
+[-3, -2, -1]
 
 Check empty list:
 >>> my_list = MyList()
@@ -45,4 +54,5 @@ Check original list is not modified:
 >>> my_list.append(1)
 >>> my_list.append(2)
 >>> sorted_list = my_list.print_sorted()
-[1, 2, 3]
+>>> print(my_list)
+[3, 1, 2]
