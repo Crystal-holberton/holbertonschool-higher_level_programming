@@ -26,6 +26,7 @@ Check for empty list:
 []
 
 Check that appending works:
+>>> l = MyList()
 >>> l.append(1)
 >>> l.append(2)
 >>> l.append(3)
@@ -51,6 +52,7 @@ Reversed order list:
 [4, 3, 2, 1]
 
 One negative number:
+>>> l = MyList()
 >>> l.append(-1)
 >>> l.append(5)
 >>> print(l)
