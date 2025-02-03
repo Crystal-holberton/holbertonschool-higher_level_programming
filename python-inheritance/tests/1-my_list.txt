@@ -45,5 +45,4 @@ Check original list is not modified:
 >>> my_list.append(1)
 >>> my_list.append(2)
 >>> sorted_list = my_list.print_sorted()
-print(my_list)
 [1, 2, 3]
