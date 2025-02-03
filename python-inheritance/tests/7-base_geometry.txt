@@ -4,20 +4,40 @@ Use of base geometry
 >>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
 >>> bg = BaseGeometry()
 
+Raises exception if called
+>>> bg.area()
+Traceback (most recent call last):
+Exception: area() is not implemented
+
 With positive integer
 >>> bg.integer_validator("my_int", 12)
+>>> bg.integer_validator("width", 89)
+
+With non-integer
+>>> bg.integer_validator("name", "John")
+Traceback (most recent call last):
+TypeError: name must be an integer
+
+With integer of 0
+>>> bg.integer_validator("age", 0)
+Traceback (most recent call last):
+ValueError: number must be greater than 0
 
 With negative integer
 >>> bg.integer_validator("number", -12)
 Traceback (most recent call last):
 ValueError: number must be greater than 0
 
-With extra arguments
->>> bg.integer_validator("numbers", 0, 1)
+With integer of 0
+>>> bg.integer_validator("age", 13.5)
 Traceback (most recent call last):
-TypeError: integer_validator() takes 3 positional arguments but 4 were given
+TypeError: name must be an integer
 
-With infinite integer
->>> bg.integer_validator("infnumber", int('inf'))
+Other types of errors
+>>> bg.integer_validator("age", (4,))
 Traceback (most recent call last):
-ValueError: invalid literal for int() with base 10: 'inf'
+TypeError: name must be an integer
+
+>>> bg.integer_validator("age", {3, 4})
+Traceback (most recent call last):
+TypeError: name must be an integer
