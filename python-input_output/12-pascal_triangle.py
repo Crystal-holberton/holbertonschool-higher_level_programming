@@ -9,7 +9,7 @@ def pascal_triangle(n):
     """
     if n <= 0:
         return []
-    
+
     triangle = [[1]]
     while len(triangle) < n:
         prev_row = triangle[-1]
