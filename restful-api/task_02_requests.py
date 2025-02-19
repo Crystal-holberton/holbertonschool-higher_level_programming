@@ -1,13 +1,13 @@
 #!/usr/bin/python3
 """Python script to fetch posts from JSONPlaceholder"""
 import requests
-
-# Define URL
-url = 'https://jsonplaceholder.typicode.com/posts'
+import csv
 
 
 def fetch_and_print_posts():
     """Send request to JSONPlaceholder"""
+    url = 'https://jsonplaceholder.typicode.com/posts'
+    
     response = requests.get(url)
     print(f"Status Code: {response.status_code}")
 
@@ -22,8 +22,8 @@ def fetch_and_print_posts():
 
 def fetch_and_save_posts():
     """Save response data to a dictionary"""
-    import csv
-
+    url = 'https://jsonplaceholder.typicode.com/posts'
+    
     response = requests.get(url)
     print(f"Status Code: {response.status_code}")
 
