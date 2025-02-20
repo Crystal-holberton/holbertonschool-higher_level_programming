@@ -1,13 +1,9 @@
-#!/usr/bin/python3
-"""Develop a Simple API using Python with Flask"""
 from flask import Flask, jsonify, request
 
 app = Flask(__name__)
-# In-memory user storage
-users = {
-    "jane": {"username": "jane", "name": "Jane", "age": 28, "city": "Los Angeles"},
-    "john": {"username": "john", "name": "John", "age": 30, "city": "New York"}
-}
+
+# In-memory user storage (Start with empty dictionary)
+users = {}
 
 # Root endpoint
 @app.route('/')
@@ -36,11 +32,17 @@ def get_user(username):
 @app.route('/add_user', methods=['POST'])
 def add_user():
     data = request.get_json()
-    if not data or "username" not in data:
+    if not data:
+        return jsonify({"error": "Invalid JSON data"}), 400
+    
+    print("Received data:", data)  # Debugging
+    
+    if "username" not in data:
         return jsonify({"error": "Username is required"}), 400
     
     username = data["username"]
     if username in users:
+        print("Existing users:", users.keys())  # Debugging
         return jsonify({"error": "User already exists"}), 400
     
     users[username] = data
