@@ -1,5 +1,4 @@
-from flask import Flask, render_template, request
-import json
+from flask import Flask, render_template, json, request
 import csv
 
 app = Flask(__name__)
@@ -26,46 +25,31 @@ def items():
         items_list = []
     return render_template('items.html', items=items_list)
 
-def read_json():
-    """Read and parse products from a JSON file."""
-    try:
-        with open('products.json') as file:
-            products = json.load(file)
-        return products
-    except (FileNotFoundError, json.JSONDecodeError):
-        return []
-
-def read_csv():
-    """Read and parse products from a CSV file."""
-    products = []
-    try:
-        with open('products.csv', newline='') as csvfile:
-            reader = csv.DictReader(csvfile)
-            for row in reader:
-                products.append({
-                    "id": int(row['id']),
-                    "name": row['name'],
-                    "category": row['category'],
-                    "price": float(row['price'])
-                })
-        return products
-    except (FileNotFoundError, ValueError, KeyError):
-        return []
-
 @app.route('/products')
-def display_products():
+def products():
     source = request.args.get('source')
     product_id = request.args.get('id')
+    products = []
     if source == 'json':
-        products = read_json()
+        try:
+            with open('products.json', 'r') as file:
+                data = json.load(file)
+                products = data if isinstance(data, list) else []
+        except (FileNotFoundError, json.JSONDecodeError):
+            return render_template('product_display.html', error="Error reading JSON file.")
     elif source == 'csv':
-        products = read_csv()
+        try:
+            with open('products.csv', newline='') as file:
+                reader = csv.DictReader(file)
+                products = [row for row in reader]
+        except FileNotFoundError:
+            return render_template('product_display.html', error="Error reading CSV file.")
     else:
-        return render_template('product_display.html', error="Wrong source")
+        return render_template('product_display.html', error="Wrong source. Use 'json' or 'csv'.")
     if product_id:
-        products = [product for product in products if str(product['id']) == product_id]
+        products = [p for p in products if str(p.get('id')) == product_id]
         if not products:
-            return render_template('product_display.html', error="Product not found")
+            return render_template('product_display.html', error="Product not found.")
         return render_template('product_display.html', products=products)
 
 if __name__ == '__main__':
