@@ -28,23 +28,29 @@ def items():
 
 def read_json():
     """Read and parse products from a JSON file."""
-    with open('products.json') as file:
-        products = json.load(file)
-    return products
-    
+    try:
+        with open('products.json') as file:
+            products = json.load(file)
+        return products
+    except (FileNotFoundError, json.JSONDecodeError):
+        return []
+
 def read_csv():
     """Read and parse products from a CSV file."""
     products = []
-    with open('products.csv', newline='') as csvfile:
-        reader = csv.DictReader(csvfile)
-        for row in reader:
-            products.append({
-                "id": int(row['id']),
-                "name": row['name'],
-                "category": row['category'],
-                "price": float(row['price'])
-            })
-    return products
+    try:
+        with open('products.csv', newline='') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                products.append({
+                    "id": int(row['id']),
+                    "name": row['name'],
+                    "category": row['category'],
+                    "price": float(row['price'])
+                })
+        return products
+    except (FileNotFoundError, ValueError, KeyError):
+        return []
 
 @app.route('/products')
 def display_products():
@@ -53,7 +59,7 @@ def display_products():
     if source == 'json':
         products = read_json()
     elif source == 'csv':
-        products = 'csv'
+        products = read_csv()
     else:
         return render_template('product_display.html', error="Wrong source")
     if product_id:
