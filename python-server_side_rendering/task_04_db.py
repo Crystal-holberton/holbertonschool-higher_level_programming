@@ -28,15 +28,20 @@ def items():
 
 def get_products_from_sql():
     """Fetch products from SQLite database and return as a list of dictionaries"""
-    try:
-        conn = sqlite3.connect('products.db')
-        cursor = conn.cursor()
-        cursor.execute("SELECT id, name, category, price FROM Products")
-        rows = cursor.fetchall()
-        conn.close()
-        return [{"id": row[0], "name": row[1], "category": row[2], "price": row[3]} for row in rows]
-    except sqlite3.Error:
-        return None
+    products = []
+    conn = sqlite3.connect('products.db')
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM Products")
+    product = cursor.fetchall()
+    conn.close()
+    for row in product:
+        products.append({
+            'id': row[0],
+            'name': row[1],
+            'category': row[2],
+            'price': row[3]
+        })
+    return products
 
 @app.route('/products')
 def products():
